@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/iv_candidate"
+        android:layout_width="124dp"
+        android:layout_height="132dp"
+        android:contentDescription="Image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/upload_image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_candidate_name"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="name"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/bt_vote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#489E2F"
+            android:text="Vote"
+            android:textColor="#041E95"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+</LinearLayout>

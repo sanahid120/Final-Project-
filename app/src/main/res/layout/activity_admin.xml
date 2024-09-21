@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/admin_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="379dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="@string/hello_admin"
+        android:textColor="#AB346A"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/btn_profile"
+        android:layout_width="63dp"
+        android:layout_height="34dp"
+        android:layout_marginBottom="100dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="@string/profile"
+        android:textColor="@color/green"
+        android:textSize="18sp"
+        android:textStyle="bold"
+
+        />
+
+    <Button
+        android:id="@+id/btn_view_candidates"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:backgroundTint="#32B2BC"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginBottom="16dp"
+        android:text="@string/view_candidates" />
+
+    <Button
+        android:id="@+id/btn_insert_candidates"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:backgroundTint="#2DA7B1"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginBottom="16dp"
+        android:text="@string/insert_candidates" />
+    <Button
+        android:id="@+id/btn_update_candidates"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:backgroundTint="#32B2BC"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginBottom="16dp"
+        android:text="@string/update_candidate_details" />
+
+    <Button
+        android:id="@+id/btn_dlt_candidates"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:backgroundTint="#32B2BC"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginBottom="16dp"
+        android:text="@string/delete_candidates" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:gravity="bottom"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/btn_id_server"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/id_server"
+            android:textSize="18sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:textStyle="bold"
+            android:textColor="@color/green"
+            />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

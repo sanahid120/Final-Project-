@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/text_view_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Candidate"
+        android:textAllCaps="true"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/et_delete_id"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:hint="Candidate ID"
+        android:inputType="number" />
+
+
+    <EditText
+        android:id="@+id/et_delete_name"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textColor="@color/black"
+        android:hint="Candidate Name"
+        android:inputType="text" />
+
+
+
+    <ImageView
+        android:id="@+id/et_delete_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="16dp" />
+    <Button
+        android:id="@+id/bt_delete_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        android:backgroundTint="#328935"
+        android:text="Search" />
+
+
+    <Button
+        android:id="@+id/bt_delete_candidate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#DB2C2C"
+        android:text="Delete Candidate"
+        android:textColor="@color/black" />
+
+
+</LinearLayout>

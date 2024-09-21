@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="16dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="35dp"
+        android:textStyle="bold"
+
+        android:textColor="@color/black"
+        android:text="Update Candidate Details"
+        android:textSize="24sp"
+        />
+
+    <EditText
+        android:id="@+id/et_update_id"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Candidate ID"
+        android:textColor="@color/black"
+        android:inputType="number" />
+
+
+    <EditText
+        android:id="@+id/et_update_name"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textColor="@color/black"
+        android:hint="Candidate Name"
+        android:inputType="text" />
+
+
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="16dp" />
+    <Button
+        android:id="@+id/bt_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        android:backgroundTint="#328935"
+        android:text="Search" />
+
+
+    <Button
+        android:id="@+id/bt_select_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/black"
+        android:layout_marginBottom="80dp"
+        android:text="Select Image" />
+
+    <Button
+        android:id="@+id/bt_insert_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#3D8A28"/>
+
+
+
+</LinearLayout>
