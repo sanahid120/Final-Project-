@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:padding="16dp">
 
+    <TextView
+        android:id="@+id/btn_back_delete_candidate"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/back_button"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/black"
+        android:layout_alignParentTop="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_margin="1dp"
+        android:layout_alignParentStart="true"
+        />
+    <!-- Header TextView -->
     <TextView
         android:id="@+id/text_view_header"
         android:layout_width="match_parent"
@@ -17,54 +30,68 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_marginBottom="16dp" />
-
-    <EditText
+        android:layout_marginBottom="16dp"
         android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true" />
+
+    <!-- Candidate ID EditText -->
+    <EditText
         android:id="@+id/et_delete_id"
-        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-
+        android:background="@android:drawable/editbox_background"
         android:hint="Candidate ID"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textColor="@color/black"
+        android:textColorHint="#4D4848"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/text_view_header" />
 
-
+    <!-- Candidate Name EditText -->
     <EditText
         android:id="@+id/et_delete_name"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:textColor="@color/black"
         android:hint="Candidate Name"
-        android:inputType="text" />
+        android:inputType="text"
+        android:background="@android:drawable/editbox_background"
 
+        android:textColorHint="#4D4848"
+        android:textColor="@color/black"
+        android:layout_below="@id/et_delete_id"
+        android:layout_marginTop="10dp" />
 
-
+    <!-- Candidate Image ImageView -->
     <ImageView
         android:id="@+id/et_delete_image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
+        android:layout_height="167dp"
+        app:srcCompat="@drawable/upload_image"
+        android:scaleType="fitCenter"
+        android:layout_below="@id/et_delete_name"
         android:layout_marginTop="16dp" />
+
+    <!-- Search Button -->
     <Button
         android:id="@+id/bt_delete_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="10dp"
+        android:text="Search"
         android:textColor="@color/white"
         android:backgroundTint="#328935"
-        android:text="Search" />
+        android:layout_below="@id/et_delete_image"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp" />
 
-
+    <!-- Delete Candidate Button -->
     <Button
         android:id="@+id/bt_delete_candidate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#DB2C2C"
         android:text="Delete Candidate"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:backgroundTint="#DB2C2C"
+        android:layout_below="@id/bt_delete_search"
+        android:layout_marginTop="10dp" />
 
-
-</LinearLayout>
+</RelativeLayout>

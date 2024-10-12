@@ -20,20 +20,18 @@ import android.widget.Toast;
 public class CandidatesAdapter extends CursorAdapter {
     private final DatabaseHelper dbHelper;
     private Context context;
+    private boolean hasVoted=false;
 
     public CandidatesAdapter(Context context, Cursor cursor, int i) {
     super(context,cursor,i);
         this.context = context;
         this.dbHelper = new DatabaseHelper(context);
-
-
     }
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.list_candidate, parent, false);
     }
-
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
@@ -44,8 +42,6 @@ public class CandidatesAdapter extends CursorAdapter {
         TextView resultNameView = view.findViewById(R.id.list_view_results);
         ImageView resultImageView = view.findViewById(R.id.iv_result_candidate);
 
-
-
         String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_NAME));
         byte[] imageBytes = cursor.getBlob(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_PRODUCT_IMAGE_URI));
         int candidateID = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
@@ -53,27 +49,23 @@ public class CandidatesAdapter extends CursorAdapter {
         nameView.setText(name);
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         candidateImage.setImageBitmap(bitmap);
-
+        if (hasVoted) {
+            vote.setEnabled(false);
+        } else {
+            vote.setEnabled(true);
+        }
         vote.setOnClickListener(v -> {
-
                 boolean success = dbHelper.incrementVoteCount(candidateID);
                 if (success) {
                     Toast.makeText(context, "Vote recorded for " + name, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, View_Results.class);
-                    // Pass additional data if necessary
                     context.startActivity(intent);
+                    hasVoted=true;
+                    notifyDataSetChanged();
                 } else {
                     Toast.makeText(context, "Failed to record vote", Toast.LENGTH_SHORT).show();
+                    hasVoted=false;
                 }
-
-                // Optionally, disable the vote button after voting to prevent multiple votes
-                vote.setEnabled(false);
-
         });
     }
-
-
-
-
-
 }

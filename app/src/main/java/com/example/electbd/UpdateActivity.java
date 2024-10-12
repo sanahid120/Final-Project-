@@ -85,6 +85,7 @@ import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -100,6 +101,7 @@ public class UpdateActivity extends AppCompatActivity {
     private ImageView imageView;
     private EditText id;
     private EditText name;
+    private TextView back;
     private DatabaseHelper databaseHelper;
 
     @Override
@@ -113,8 +115,12 @@ public class UpdateActivity extends AppCompatActivity {
         Button select_image = findViewById(R.id.bt_select_image);
         Button insert = findViewById(R.id.bt_insert_update);
         imageView = findViewById(R.id.image);
+        back=findViewById(R.id.btn_back_update_candidate);
 
         databaseHelper = new DatabaseHelper(this);
+        back.setOnClickListener(v->{
+            finish();
+        });
 
         search.setOnClickListener(view -> {
             String cid = id.getText().toString().trim();

@@ -1,161 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:id="@+id/register"
-    android:gravity="center">
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <!-- Back Button -->
     <TextView
         android:id="@+id/back_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/back"
+        android:layout_width="44dp"
+        android:layout_height="42dp"
+        android:drawableLeft="@drawable/back_button"
+        android:gravity="center_vertical"
         android:textColor="@color/green"
         android:clickable="true"
         android:focusable="true"
-        android:gravity="start"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp" />
 
-
+    <!-- Title -->
     <TextView
-        android:layout_width="379dp"
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
         android:text="@string/id_server"
         android:textColor="#001F92"
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <!-- Username Label and EditText -->
-    <LinearLayout
+    <!-- Username Section -->
+    <TextView
+        android:id="@+id/tv_id_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/id"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_below="@id/tv_title"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="4dp" />
+
+    <EditText
+        android:id="@+id/et_server_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:textColor="@color/black"
+        android:inputType="number"
+        android:padding="10dp"
+        android:layout_below="@id/tv_id_label"
+        android:background="@android:drawable/editbox_background" />
 
-        <TextView
-            android:id="@+id/tv_id_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/id"
-            android:layout_marginStart="4dp"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            />
+    <!-- Name Section -->
+    <TextView
+        android:id="@+id/tv_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_below="@id/et_server_id"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="4dp" />
 
-        <EditText
-            android:id="@+id/et_server_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:padding="10dp"
-            android:background="@android:drawable/editbox_background"
-            />
-
-        <TextView
-            android:id="@+id/tv_name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:layout_marginStart="4dp"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            />
-
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:background="@android:drawable/editbox_background" />
-
-
-        <TextView
-            android:id="@+id/tv_f_name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Father's Name"
-            android:layout_marginStart="4dp"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            />
-
-        <EditText
-            android:id="@+id/et_f_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:textColorHint="@color/black"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:background="@android:drawable/editbox_background" />
-
-
-        <TextView
-            android:id="@+id/tv_m_name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mother's Name"
-            android:layout_marginStart="4dp"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/et_m_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:background="@android:drawable/editbox_background" />
-
-
-        <TextView
-            android:id="@+id/tv_phone_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phone"
-            android:layout_marginStart="4dp"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/et_id_person_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:background="@android:drawable/editbox_background" />
-
-
-        <TextView
-            android:id="@+id/tv_address_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Address"
-            android:layout_marginStart="4dp"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/et_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:background="@android:drawable/editbox_background" />
-    </LinearLayout>
-
-    <LinearLayout
+    <EditText
+        android:id="@+id/et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="start"
+        android:textColor="@color/black"
+        android:inputType="text"
+        android:padding="10dp"
+        android:background="@android:drawable/editbox_background"
+        android:layout_below="@id/tv_name_label" />
+
+    <!-- Father's Name Section -->
+    <TextView
+        android:id="@+id/tv_f_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Father's Name"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_below="@id/et_name"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="4dp" />
+
+    <EditText
+        android:id="@+id/et_f_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:background="@android:drawable/editbox_background"
+        android:layout_below="@id/tv_f_name_label" />
+
+    <!-- Mother's Name Section -->
+    <TextView
+        android:id="@+id/tv_m_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mother's Name"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_below="@id/et_f_name"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="4dp" />
+
+    <EditText
+        android:id="@+id/et_m_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:background="@android:drawable/editbox_background"
+        android:layout_below="@id/tv_m_name_label" />
+
+    <!-- Phone Section -->
+    <TextView
+        android:id="@+id/tv_phone_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_below="@id/et_m_name"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="4dp" />
+
+    <EditText
+        android:id="@+id/et_id_person_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:background="@android:drawable/editbox_background"
+        android:layout_below="@id/tv_phone_label" />
+
+    <!-- Address Section -->
+    <TextView
+        android:id="@+id/tv_address_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_below="@id/et_id_person_phone"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="4dp" />
+
+    <EditText
+        android:id="@+id/et_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:background="@android:drawable/editbox_background"
+        android:layout_below="@id/tv_address_label" />
+
+    <!-- Image Upload Section -->
+    <LinearLayout
+        android:id="@+id/image_upload_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_address"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -165,8 +179,7 @@
             android:background="@drawable/upload_image"
             android:clickable="true"
             android:focusable="true"
-
-            />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:layout_width="137dp"
@@ -174,48 +187,42 @@
             android:gravity="center"
             android:text="@string/upload_image"
             android:textSize="18sp" />
-
     </LinearLayout>
 
-
+    <!-- Insert Button -->
     <Button
         android:id="@+id/btn_insert"
-        android:layout_width="356dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="16dp"
+        android:layout_below="@id/image_upload_layout"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#19A252"
-        android:padding="1dp"
-        android:text="insert"
+        android:text="Insert"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-
+    <!-- Update and Delete Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_insert"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_serverID_update"
-            android:layout_width="182dp"
-            android:layout_height="match_parent"
-            android:padding="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Update" />
 
         <Button
             android:id="@+id/btn_serverID_delete"
-            android:layout_width="167dp"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginStart="10dp"
-            android:padding="10dp"
             android:text="Delete" />
-
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

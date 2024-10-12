@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <!-- Circular ImageView -->
+    <TextView
+        android:id="@+id/btn_back_userProfile"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_margin="1dp"
+        android:backgroundTint="@color/black"
+        android:clickable="true"
+        android:drawableLeft="@drawable/back_button"
+        android:focusable="true"
+        android:textColor="@color/white" />
+
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/circular_background"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_3" />
+
+    <!-- Username EditText -->
+    <EditText
+        android:id="@+id/change_username_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#6D5C5C"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp"
+        android:background="@android:drawable/edit_text"
+        android:hint="Username"
+        android:padding="12dp" />
+
+    <!-- Birthday EditText -->
+    <EditText
+        android:id="@+id/change_birthday_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#6D5C5C"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp"
+        android:enabled="false"
+        android:background="@android:drawable/edit_text"
+        android:hint="Birthday (DD/MM/YYYY)"
+        android:padding="12dp" />
+
+    <!-- ID EditText (non-editable for display) -->
+    <EditText
+        android:id="@+id/user_id_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@android:drawable/edit_text"
+        android:hint="ID"
+        android:enabled="false"
+        android:textColorHint="#6D5C5C"
+        android:textColor="@color/black"
+        android:padding="12dp" />
+
+
+
+    <!-- Phone EditText -->
+    <EditText
+        android:id="@+id/change_phone_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#6D5C5C"
+        android:textColor="@color/black"
+        android:layout_marginBottom="20dp"
+        android:background="@android:drawable/edit_text"
+        android:hint="Phone"
+        android:enabled="false"
+        android:padding="12dp" />
+
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#3E7531"
+        android:padding="12dp"
+        android:text="Save"
+        android:textColor="@android:color/white" />
+
+    <!-- Change Email or Phone TextView -->
+    <TextView
+        android:id="@+id/tv_profile_change_email_or_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Change email or phone"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="18sp" />
+
+    <!-- Change Password TextView -->
+    <TextView
+        android:id="@+id/tv_profile_change_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Change Password"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="18sp" />
+
+</LinearLayout>

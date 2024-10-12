@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +15,18 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class View_Results extends AppCompatActivity {
     private ListView resultViewCandidates;
+    private TextView BackButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_results);
 
         resultViewCandidates = findViewById(R.id.result_view_candidates);
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+         BackButton =findViewById(R.id.btn_back);
+         BackButton.setOnClickListener(v->{
+             finish();
+
+         });
 
         displayCandidates();
 

@@ -69,19 +69,18 @@ public class MainActivity extends AppCompatActivity {
 }*/
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 public class MainActivity extends AppCompatActivity {
 
     private EditText etUsername, etPassword;
     private Button btnLogin, btnRegister;
-    private String admin_username="admin";
-    private String admin_password="admin";
+    DatabaseHelper dbhelper= new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize UI components
         initializeUIComponents();
+
+        // Insert default admin credentials if not already present
+        dbhelper.insertAdminCredentials("admin", "admin");
 
         // Set listeners
         btnRegister.setOnClickListener(v -> navigateToRegistration());
@@ -115,49 +117,29 @@ public class MainActivity extends AppCompatActivity {
         // Validate inputs
         if (username.isEmpty() || password.isEmpty()) {
             showToast("Please fill the necessary information!");
+            etUsername.setError("Enter Username");
+            etPassword.setError("Enter Password");
+            return;
         }
 
         // Check if user is admin
-        else if (isAdmin(username, password)) {
+        if (dbhelper.checkAdminCredentials(username, password)) {
             navigateToActivity(AdminActivity.class);
         }
-
-        // Check user info
+        // Check if user info matches
         else if (checkUserinfo(username, password)) {
             showToast("Login Successful!");
             navigateToActivity(CandidatesActivity.class);
+            UserProfile.userinfo=username;
         }
-
-        // else show message
+        // Else, show an error
         else {
             showToast("Unregistered Information!");
         }
     }
 
-    public void setAdmin_username(String admin_username) {
-        this.admin_username = admin_username;
-    }
-
-    public String getAdmin_username() {
-        return admin_username;
-    }
-
-    public void setAdmin_password(String admin_password) {
-        this.admin_password = admin_password;
-    }
-
-    public String getAdmin_password() {
-        return admin_password;
-    }
-
-    private boolean isAdmin(String username, String password) {
-
-        return username.equals(admin_username) && password.equals(admin_password);
-    }
-
     private boolean checkUserinfo(String username, String password) {
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        return dbHelper.checkUser(username, password);
+        return dbhelper.checkUser(username, password);
     }
 
     private void navigateToActivity(Class<?> targetActivity) {
@@ -168,4 +150,6 @@ public class MainActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
+
+
 }

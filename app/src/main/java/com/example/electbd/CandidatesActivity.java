@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class CandidatesActivity extends AppCompatActivity {
     private ListView listViewCandidates;
+    private TextView logout,profile,results;
 
 
     @Override
@@ -22,18 +23,23 @@ public class CandidatesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidates);
 
-        TextView results =findViewById(R.id.bt_view_result);
-        TextView logout = findViewById(R.id.tv_logout_candidate);
-        TextView profile = findViewById(R.id.tv_candidate_profile);
+        results =findViewById(R.id.bt_view_result);
+        logout = findViewById(R.id.tv_logout_candidate);
+        profile = findViewById(R.id.tv_candidate_profile);
         listViewCandidates = findViewById(R.id.list_view_Candidates);
 
         logout.setOnClickListener(v->{
+
+            finish();
             Intent intent = new Intent(CandidatesActivity.this, MainActivity.class);
             startActivity(intent);
+
+            // i will design it further with firebase.
         });
         profile.setOnClickListener(v->{
-            Intent intent = new Intent(CandidatesActivity.this, MainActivity.class);
+            Intent intent = new Intent(CandidatesActivity.this, UserProfile.class);
             startActivity(intent);
+            // i will design it further with firebase.
         });
 
         displayCandidates();
@@ -41,15 +47,12 @@ public class CandidatesActivity extends AppCompatActivity {
             Intent intent = new Intent(CandidatesActivity.this, View_Results.class);
             startActivity(intent);
         });
-
-
         }
     private void displayCandidates() {
         DatabaseHelper databaseHelper=new DatabaseHelper(CandidatesActivity.this);
         Cursor cursor = databaseHelper.getCandidates();
         CandidatesAdapter adapter = new CandidatesAdapter(this, cursor, 0);
         listViewCandidates.setAdapter(adapter);
-
     }
 
 }

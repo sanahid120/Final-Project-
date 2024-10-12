@@ -12,20 +12,27 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class AdminActivity extends AppCompatActivity {
+    Button view,insert,update,delete;
+    TextView profile,ID_Server,logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        Button view =findViewById(R.id.btn_view_candidates);
-        Button insert =findViewById(R.id.btn_insert_candidates);
-        Button update =findViewById(R.id.btn_update_candidates);
-        Button delete =findViewById(R.id.btn_dlt_candidates);
-        TextView profile =findViewById(R.id.btn_profile);
-        TextView id_server =findViewById(R.id.btn_id_server);
+        view =findViewById(R.id.btn_view_candidates);
+        insert =findViewById(R.id.btn_insert_candidates);
+        update =findViewById(R.id.btn_update_candidates);
+        delete =findViewById(R.id.btn_dlt_candidates);
+        profile =findViewById(R.id.btn_Profile);
+        ID_Server =findViewById(R.id.btn_id_server);
+        logout = findViewById(R.id.tv_logout_admin);
 
-
+        logout.setOnClickListener(v->{
+            finish();
+            Intent intent = new Intent(AdminActivity.this,MainActivity.class);
+            startActivity(intent);
+        });
 
         view.setOnClickListener(v -> {
             Intent intent = new Intent(AdminActivity.this,View_Results.class);
@@ -51,10 +58,10 @@ public class AdminActivity extends AppCompatActivity {
             Intent intent = new Intent(AdminActivity.this,Admin_Profile.class);
             startActivity(intent);
         });
-        id_server.setOnClickListener(v-> {
+        ID_Server.setOnClickListener(v-> {
             Intent intent = new Intent(AdminActivity.this,Id_Server.class);
             startActivity(intent);
         });
-
     }
 }
+

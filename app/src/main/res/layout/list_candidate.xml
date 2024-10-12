@@ -4,41 +4,51 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@color/white"
-    android:padding="8dp">
+    android:padding="12dp"
+    android:layout_margin="8dp"
+    android:gravity="center_vertical"
+    android:elevation="4dp">
 
     <ImageView
         android:id="@+id/iv_candidate"
-        android:layout_width="124dp"
-        android:layout_height="132dp"
-        android:contentDescription="Image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:contentDescription="Candidate Image"
         android:scaleType="centerCrop"
-        android:src="@drawable/upload_image" />
+        android:layout_gravity="center"
+        android:src="@drawable/upload_image"
+        android:layout_marginEnd="12dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:orientation="vertical">
-
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/tv_candidate_name"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="name"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:layout_height="72dp"
+            android:layout_marginBottom="1dp"
 
+            android:text="Candidate Name"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/bt_vote"
-            android:layout_width="wrap_content"
+            android:layout_width="96dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#489E2F"
+            android:layout_gravity="start"
+            android:layout_marginTop="1dp"
             android:text="Vote"
-            android:textColor="#041E95"
-            android:textSize="24sp" />
-
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/white"
+            android:textColor="#F8F8FB"
+            android:textSize="18sp" />
     </LinearLayout>
 </LinearLayout>

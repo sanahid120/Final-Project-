@@ -8,33 +8,38 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class DeleteActivity extends AppCompatActivity {
-    private static final int PICK_IMAGE_REQUEST = 1;
     private byte[] ImageByteArray;
 
     private ImageView imageView;
     private EditText id;
     private EditText name;
     private DatabaseHelper databaseHelper;
+    private TextView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delete);
+        setContentView(R.layout.activity_delete); // Set the layout here
+
+        // Initialize views after setContentView()
         id = findViewById(R.id.et_delete_id);
         name = findViewById(R.id.et_delete_name);
         Button search = findViewById(R.id.bt_delete_search);
         Button delete = findViewById(R.id.bt_delete_candidate);
         imageView = findViewById(R.id.et_delete_image);
+        back = findViewById(R.id.btn_back_delete_candidate); // Initialize here
 
         databaseHelper = new DatabaseHelper(this);
+
+        back.setOnClickListener(v -> {
+            finish(); // Close the current activity when back is pressed
+        });
 
         search.setOnClickListener(view -> {
             String cid = id.getText().toString().trim();
@@ -61,7 +66,7 @@ public class DeleteActivity extends AppCompatActivity {
             }
         });
 
-        delete.setOnClickListener(v-> {
+        delete.setOnClickListener(v -> {
             String candidateID = id.getText().toString().trim();
             if (candidateID.isEmpty()) {
                 Toast.makeText(this, "Please enter a candidate ID to delete", Toast.LENGTH_SHORT).show();
@@ -77,8 +82,6 @@ public class DeleteActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Deletion failed", Toast.LENGTH_SHORT).show();
             }
-
         });
-
     }
 }

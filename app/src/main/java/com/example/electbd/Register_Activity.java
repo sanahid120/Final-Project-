@@ -86,7 +86,9 @@ public class Register_Activity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
-        btnRegister.setOnClickListener(v -> handleRegistration());
+        btnRegister.setOnClickListener(v -> {
+            handleRegistration();
+        });
         btnLogin.setOnClickListener(v -> navigateToLogin());
     }
 
@@ -98,8 +100,8 @@ public class Register_Activity extends AppCompatActivity {
         rg_phone = findViewById(R.id.et_phone);
         rg_password = findViewById(R.id.et_reg_password);
         rg_confirm_password = findViewById(R.id.et_confirm_password);
-        btnRegister = findViewById(R.id.btn_SignUp);
-        btnLogin = findViewById(R.id.btn_SignIn);
+        btnRegister = findViewById(R.id.btn_register);
+        btnLogin = findViewById(R.id.btn_sign_in);
     }
 
     private void handleRegistration() {
@@ -129,7 +131,7 @@ public class Register_Activity extends AppCompatActivity {
 
         Pattern phonePattern = Pattern.compile("^(\\+88)?01[2-9][0-9]{8}$");
         Pattern emailPattern = Pattern.compile("^(cse)_\\d{16}@lus.ac.bd$");
-        Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{8,}$");
+        Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
         Pattern birthdayPattern = Pattern.compile("^(0[1-9]|[1|2][0-9]|3[01])/(0[1-9]|1[0-2])/((19|20)[0-9]{2})$");
         Pattern idPattern = Pattern.compile("^\\d{16}$");
 
@@ -139,37 +141,39 @@ public class Register_Activity extends AppCompatActivity {
         }
 
         //email validation code
-        else if (!email.isEmpty()) {
-            if (emailPattern.matcher(email).matches()) {
-                return true;
-            }
-            else {
-                Toast.makeText(this, "Invalid e-mail address,CSE mail only", Toast.LENGTH_SHORT).show();
-                return  false;
-            }
+
+        else if (!emailPattern.matcher(email).matches()) {
+            Toast.makeText(this, "Invalid e-mail address,CSE mail only", Toast.LENGTH_SHORT).show();
+            rg_email.setError("enter LU CSE mail");
+            return  false;
         }
 
         // ID validation code
         else if (!idPattern.matcher(id).matches()) {
             Toast.makeText(this, "Invalid ID. Must Have 16 Digits", Toast.LENGTH_SHORT).show();
+            rg_id.setError("Must have 16 digits");
             return false;
         }
 
         //birthday validation code
         else if (!birthdayPattern.matcher(birthday).matches()) {
-            Toast.makeText(this, "Invalid BirthDate", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Don't You know your Birthday? Idiot!", Toast.LENGTH_SHORT).show();
+            rg_birthday.setError("Enter Correct date");
             return false;
         }
 
         // Phone number validation code
         else if (!phonePattern.matcher(phone).matches()) {
-            Toast.makeText(this, "Invalid Phone Number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "is this a phone number?", Toast.LENGTH_SHORT).show();
+            rg_phone.setError("Enter a valid number");
             return false;
         }
 
         //Password Validation code
-        else if (!passwordPattern.matcher(password).matches()) {
+        else if (passwordPattern.matcher(password).matches()) {
             Toast.makeText(this, "Password must have least of 8 characters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "atleast 1 upper, 1 lower and 1 number", Toast.LENGTH_SHORT).show();
+            rg_password.setError("atleast 8,Uper, lower, number ");
             return false;
         }
 

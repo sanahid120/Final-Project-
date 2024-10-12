@@ -37,7 +37,6 @@ public class Id_Server extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_id_server);
 
-        // Initialize UI components
         initializeUIComponents();
 
         dbHelper = new DatabaseHelper(this);
@@ -46,7 +45,8 @@ public class Id_Server extends AppCompatActivity {
         update.setOnClickListener(v -> handleUpdate());
         delete.setOnClickListener(v -> handleDelete());
         back.setOnClickListener(v->{
-            Intent intent = new Intent(Id_Server.this,AdminActivity.class);
+            finish();
+            Intent intent = new Intent(Id_Server.this, AdminActivity.class);
             startActivity(intent);
         });
 
@@ -57,6 +57,7 @@ public class Id_Server extends AppCompatActivity {
                     Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                     image.setImageBitmap(imageBitmap);
                     imageByteArray = bitmapToByteArray(imageBitmap);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -94,9 +95,12 @@ public class Id_Server extends AppCompatActivity {
     }
 
     private void handleDelete() {
+        Toast.makeText(this, "Delete is still in progress!", Toast.LENGTH_SHORT).show();
+
     }
 
     private void handleUpdate() {
+        Toast.makeText(this, "Update is still in progress!", Toast.LENGTH_SHORT).show();
     }
 
     private void handleInsert() {

@@ -28,5 +28,6 @@
     <string name="back"><u><i><b>Back</b></i></u></string>
     <string name="My_Profile"><u>My Profile</u></string>
     <string name="logout"><u>logout</u></string>
+    <string name="LogOut">LogOut</string>
 
 </resources>

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     android:id="@+id/register"
@@ -39,8 +40,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textColor="@color/black"
             android:padding="10dp"
-            android:background="@android:drawable/editbox_background"
+            android:background="@drawable/editext_background"
              />
     </LinearLayout>
 
@@ -64,9 +66,10 @@
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:inputType="textEmailAddress"
             android:padding="10dp"
-            android:background="@android:drawable/editbox_background" />
+            android:background="@drawable/editext_background" />
     </LinearLayout>
 
     <!-- ID Label and EditText -->
@@ -90,10 +93,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:padding="10dp"
-            android:textColor="@color/black"
-            android:background="@android:drawable/editbox_background" />
+            android:background="@drawable/editext_background" />
     </LinearLayout>
 
     <!-- Birth Date Label and EditText -->
@@ -118,7 +121,7 @@
             android:inputType="date"
             android:padding="10dp"
             android:textColor="@color/black"
-            android:background="@android:drawable/editbox_background" />
+            android:background="@drawable/editext_background" />
     </LinearLayout>
 
     <!-- Phone Label and EditText -->
@@ -143,7 +146,7 @@
             android:inputType="phone"
             android:padding="10dp"
             android:textColor="@color/black"
-            android:background="@android:drawable/editbox_background" />
+            android:background="@drawable/editext_background" />
     </LinearLayout>
 
     <!-- Password Label and EditText -->
@@ -161,14 +164,21 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/et_reg_password"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:background="@android:drawable/editbox_background" />
+            android:layout_marginTop="1dp"
+            app:passwordToggleEnabled="true">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_reg_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/editext_background"
+                android:drawablePadding="5dp"
+                android:textColorHint="@color/purple"
+                android:inputType="textPassword"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <!-- Confirm Password Label and EditText -->
@@ -186,56 +196,67 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/et_confirm_password"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:layout_marginBottom="10dp"
-            android:background="@android:drawable/editbox_background" />
+            android:layout_marginTop="1dp"
+            app:passwordToggleEnabled="true">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/editext_background"
+                android:drawablePadding="5dp"
+                android:textColorHint="@color/purple"
+                android:inputType="textPassword"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_SignUp"
+        android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Register"
         android:padding="12dp"
         android:textSize="18sp"
         android:backgroundTint="#19A252"
-        android:textStyle="bold"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginStart="10dp" />
+        android:layout_marginStart="12dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/tv_extra_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/already_have_an_account"
-            android:textSize="18sp"
-            android:textColor="@android:color/black" />
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:layout_marginEnd="5dp" />
 
         <TextView
-            android:id="@+id/btn_SignIn"
+            android:id="@+id/btn_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#33BAA3"
+            android:text="@string/sign"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:layout_marginStart="5dp"
             android:clickable="true"
             android:focusable="true"
-            android:text="@string/sign"
-            android:textColor="#FEFFFE"
-            android:textSize="18sp" />
+            android:padding="4dp"
+            android:elevation="1dp"
+            android:contentDescription="Sign in to your account" />
     </LinearLayout>
+
 </LinearLayout>
