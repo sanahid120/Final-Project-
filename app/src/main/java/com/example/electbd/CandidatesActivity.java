@@ -37,9 +37,9 @@ public class CandidatesActivity extends AppCompatActivity {
             // i will design it further with firebase.
         });
         profile.setOnClickListener(v->{
+
             Intent intent = new Intent(CandidatesActivity.this, UserProfile.class);
             startActivity(intent);
-            // i will design it further with firebase.
         });
 
         displayCandidates();

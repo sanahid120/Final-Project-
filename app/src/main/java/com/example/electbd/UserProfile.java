@@ -56,6 +56,7 @@ public class UserProfile extends AppCompatActivity {
                 // Update the username in the database
                 dbHelper.updateUsername(userId, newUsername);
                 Toast.makeText(UserProfile.this, "Username saved!", Toast.LENGTH_SHORT).show();
+                finish();
             } else {
                 usernameEditText.setError("Username is Empty!");
             }
@@ -90,7 +91,6 @@ public class UserProfile extends AppCompatActivity {
             phoneEditText.setText(phone);
             userIdTextView.setText(userID);
             cursor.close();
-
         } else {
             Toast.makeText(this, "User not found!", Toast.LENGTH_SHORT).show();
         }
