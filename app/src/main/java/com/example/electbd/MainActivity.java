@@ -69,17 +69,18 @@ public class MainActivity extends AppCompatActivity {
 }*/
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private EditText etUsername, etPassword;
-    private Button btnLogin, btnRegister;
+    private Button btnLogin;
+    private TextView btnRegister;
     DatabaseHelper dbhelper= new DatabaseHelper(this);
 
     @Override
@@ -100,14 +101,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeUIComponents() {
         etUsername = findViewById(R.id.et_username);
-        etPassword = findViewById(R.id.et_password);
-        btnLogin = findViewById(R.id.btn_login);
-        btnRegister = findViewById(R.id.btn_register);
+        etPassword = findViewById(R.id.et_email_phone_login);
+        btnLogin = findViewById(R.id.btn_login_signin);
+        btnRegister = findViewById(R.id.tv_login_signup);
     }
 
     private void navigateToRegistration() {
-        Intent intent = new Intent(MainActivity.this, Register_Activity.class);
-        startActivity(intent);
+        startActivity(new Intent(MainActivity.this,Register_Activity.class));
     }
 
     private void handleLogin() {
