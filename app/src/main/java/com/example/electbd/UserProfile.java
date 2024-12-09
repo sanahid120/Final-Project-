@@ -10,9 +10,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UserProfile extends AppCompatActivity {
 
-    private ImageView profileImageView;
+    private CircleImageView profileImageView;
     private EditText usernameEditText;
     private EditText birthdayEditText; // Assuming you have birthday in the layout
     private EditText phoneEditText;    // Assuming you have phone in the layout
@@ -23,7 +25,7 @@ public class UserProfile extends AppCompatActivity {
     private TextView changePasswordTextView,back;
 
     private DatabaseHelper dbHelper;
-    private String userId; // Example userId, should be retrieved from session or intent
+    private String userID; // Example userId, should be retrieved from session or intent
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class UserProfile extends AppCompatActivity {
 
         // Initialize views
         back=findViewById(R.id.btn_back_userProfile);
-        profileImageView = findViewById(R.id.profile_image);
+        profileImageView = findViewById(R.id.user_profile_image);
         usernameEditText = findViewById(R.id.change_username_edit_text);
         birthdayEditText = findViewById(R.id.change_birthday_edit_text);
         phoneEditText = findViewById(R.id.change_phone_edit_text);
@@ -50,13 +52,12 @@ public class UserProfile extends AppCompatActivity {
         loadUserInfo(userinfo);
         // Handle save button click
         saveButton.setOnClickListener(v -> {
-            String newUsername = usernameEditText.getText().toString();
-            userId = userIdTextView.getText().toString();
+            String newUsername = usernameEditText.getText().toString().trim();
+
             if (!newUsername.isEmpty()) {
                 // Update the username in the database
-                dbHelper.updateUsername(userId, newUsername);
+                dbHelper.updateUsername(userID, newUsername);
                 Toast.makeText(UserProfile.this, "Username saved!", Toast.LENGTH_SHORT).show();
-                finish();
             } else {
                 usernameEditText.setError("Username is Empty!");
             }
@@ -84,7 +85,7 @@ public class UserProfile extends AppCompatActivity {
             String username = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_USERNAME));
             String birthday = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_BIRTHDAY));
             String phone = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_MOBILE));
-            String userID = String.valueOf(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_NID)));
+            userID = String.valueOf(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_NID)));
 
             usernameEditText.setText(username);
             birthdayEditText.setText(birthday);

@@ -58,10 +58,7 @@ public class AdminActivity extends AppCompatActivity {
             Intent intent = new Intent(AdminActivity.this,Admin_Profile.class);
             startActivity(intent);
         });
-        ID_Server.setOnClickListener(v-> {
-            Intent intent = new Intent(AdminActivity.this,Id_Server.class);
-            startActivity(intent);
-        });
+
     }
 }
 
