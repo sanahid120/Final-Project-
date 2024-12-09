@@ -137,6 +137,21 @@ public class Register_Activity extends AppCompatActivity {
 
         if (username.isEmpty() || id.isEmpty() || birthday.isEmpty() || phone.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "All fields are required.", Toast.LENGTH_SHORT).show();
+            if(username.isEmpty()){
+                rg_username.setError("Enter Username");
+            }
+            if (id.isEmpty()){
+                rg_id.setError("Enter ID");
+            }
+            if(birthday.isEmpty()){
+                rg_birthday.setError("Enter BirthDate");
+            }
+            if(phone.isEmpty()){
+                rg_phone.setError("Enter Mobile Number");
+            }
+            if(password.isEmpty()){
+                rg_password.setError("Enter Password");
+            }
             return false;
         }
 
@@ -144,7 +159,7 @@ public class Register_Activity extends AppCompatActivity {
 
         else if (!emailPattern.matcher(email).matches()) {
             Toast.makeText(this, "Invalid e-mail address,CSE mail only", Toast.LENGTH_SHORT).show();
-            rg_email.setError("enter LU CSE mail");
+            rg_email.setError("Enter LU CSE mail");
             return  false;
         }
 
@@ -157,7 +172,7 @@ public class Register_Activity extends AppCompatActivity {
 
         //birthday validation code
         else if (!birthdayPattern.matcher(birthday).matches()) {
-            Toast.makeText(this, "Don't You know your Birthday? Idiot!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter date correctly!!", Toast.LENGTH_SHORT).show();
             rg_birthday.setError("Enter Correct date");
             return false;
         }
@@ -170,7 +185,7 @@ public class Register_Activity extends AppCompatActivity {
         }
 
         //Password Validation code
-        else if (passwordPattern.matcher(password).matches()) {
+        else if (!passwordPattern.matcher(password).matches()) {
             Toast.makeText(this, "Password must have least of 8 characters", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "atleast 1 upper, 1 lower and 1 number", Toast.LENGTH_SHORT).show();
             rg_password.setError("atleast 8,Uper, lower, number ");

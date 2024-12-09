@@ -1,72 +1,4 @@
 package com.example.electbd;
-/*
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-public class MainActivity extends AppCompatActivity {
-
-    @SuppressLint("MissingInflatedId")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        EditText etUsername = findViewById(R.id.et_username);
-        EditText etPassword = findViewById(R.id.et_password);
-        Button btnLogin = findViewById(R.id.btn_login);
-        Button btnRegister = findViewById(R.id.btn_register);
-
-        btnRegister.setOnClickListener(v-> {
-            Intent intent = new Intent(MainActivity.this, Register_Activity.class);
-            startActivity(intent);
-
-        });
-
-        btnLogin.setOnClickListener(v->{
-            Toast.makeText(MainActivity.this,"login button clicked",Toast.LENGTH_SHORT).show();
-            String username = etUsername.getText().toString();
-            String password = etPassword.getText().toString();
-            String admin_username = "admin";
-            String admin_password = "admin";
-
-            if (username.equals(admin_username)&&password.equals(admin_password) ){
-                Intent intent_to_admin = new Intent(MainActivity.this, AdminActivity.class);
-                startActivity(intent_to_admin);
-            }
-            else if(username.isEmpty() || password.isEmpty()){
-                Toast.makeText(MainActivity.this,"Please fill the necessary information!!",Toast.LENGTH_SHORT).show();
-            }
-
-            else {
-
-                DatabaseHelper dbhelper = new DatabaseHelper(MainActivity.this);
-
-                boolean result = dbhelper.checkUser(username,password);
-                if (result){
-                    Intent intent = new Intent(MainActivity.this,CandidatesActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(MainActivity.this,"Unregistered Information!!",Toast.LENGTH_LONG).show();
-
-                }
-
-            }
-
-        });
-
-    }
-}*/
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -100,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeUIComponents() {
-        etUsername = findViewById(R.id.et_username);
-        etPassword = findViewById(R.id.et_email_phone_login);
+        etUsername = findViewById(R.id.et_email_phone_login);
+        etPassword = findViewById(R.id.et_password_login);
         btnLogin = findViewById(R.id.btn_login_signin);
         btnRegister = findViewById(R.id.tv_login_signup);
     }
@@ -116,9 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Validate inputs
         if (username.isEmpty() || password.isEmpty()) {
+            if(username.isEmpty()){
+                etUsername.setError("Enter Username");
+            }
+            if (password.isEmpty()){
+                etPassword.setError("Enter Password");
+            }
             showToast("Please fill the necessary information!");
-            etUsername.setError("Enter Username");
-            etPassword.setError("Enter Password");
             return;
         }
 

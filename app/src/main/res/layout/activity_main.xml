@@ -41,6 +41,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColorHint="@color/black"
                 android:layout_marginTop="1dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_email_phone_login"
@@ -59,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textColorHint="@color/black"
                 app:passwordToggleEnabled="true">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_password_login"

@@ -29,5 +29,6 @@
     <string name="My_Profile"><u>My Profile</u></string>
     <string name="logout"><u>logout</u></string>
     <string name="LogOut">LogOut</string>
+    <string name="candidate_name">Candidate Name</string>
 
 </resources>

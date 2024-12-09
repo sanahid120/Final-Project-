@@ -22,14 +22,12 @@ public class CandidatesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidates);
-
         results =findViewById(R.id.bt_view_result);
         logout = findViewById(R.id.tv_logout_candidate);
         profile = findViewById(R.id.tv_candidate_profile);
         listViewCandidates = findViewById(R.id.list_view_Candidates);
 
         logout.setOnClickListener(v->{
-
             finish();
             Intent intent = new Intent(CandidatesActivity.this, MainActivity.class);
             startActivity(intent);
