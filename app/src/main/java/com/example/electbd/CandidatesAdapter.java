@@ -20,7 +20,6 @@ import android.widget.Toast;
 public class CandidatesAdapter extends CursorAdapter {
     private final DatabaseHelper dbHelper;
     private Context context;
-    private boolean hasVoted=false;
 
     public CandidatesAdapter(Context context, Cursor cursor, int i) {
     super(context,cursor,i);
@@ -49,7 +48,7 @@ public class CandidatesAdapter extends CursorAdapter {
         nameView.setText(name);
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         candidateImage.setImageBitmap(bitmap);
-        if (hasVoted) {
+        if (dbHelper.hasVoted(UserProfile.userinfo)) {
             vote.setEnabled(false);
         } else {
             vote.setEnabled(true);
@@ -60,11 +59,10 @@ public class CandidatesAdapter extends CursorAdapter {
                     Toast.makeText(context, "Vote recorded for " + name, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, View_Results.class);
                     context.startActivity(intent);
-                    hasVoted=true;
+                    dbHelper.setVoted(UserProfile.userinfo);
                     notifyDataSetChanged();
                 } else {
                     Toast.makeText(context, "Failed to record vote", Toast.LENGTH_SHORT).show();
-                    hasVoted=false;
                 }
         });
     }

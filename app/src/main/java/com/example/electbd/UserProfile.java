@@ -76,13 +76,15 @@ public class UserProfile extends AppCompatActivity {
 
         profileImageView.setOnClickListener(view -> {
             showImageSelectionDialog();
-            boolean isUpdated = dbHelper.InsertUserImage(userID, imageByteArray);
         });
 
         // Handle save button click
         saveButton.setOnClickListener(v -> {
             String newUsername = usernameEditText.getText().toString().trim();
-
+            boolean isUpdated = dbHelper.InsertUserImage(userinfo, imageByteArray);
+            if (isUpdated){
+                loadUserInfo(userinfo);
+            }
             if (!newUsername.isEmpty()) {
                 // Update the username in the database
                 dbHelper.updateUsername(userID, newUsername);
@@ -141,7 +143,7 @@ public class UserProfile extends AppCompatActivity {
     }
     private byte[] bitmapToByteArray(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
 }

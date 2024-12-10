@@ -10,7 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database constants
     private static final String DATABASE_NAME = "NationalServer";
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 10;
 
     // Table names
     private static final String TABLE_USERS = "users";
@@ -25,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String COL_MOBILE = "mobile";
     static final String COL_PASSWORD = "password";
     static final String COL_IMAGE = "image";
+    static final String COL_VOTED = "voted";
 
     // Column names for candidates table
     static final String COL_ID = "id";
@@ -50,6 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL_BIRTHDAY + " TEXT NOT NULL, " +
                 COL_MOBILE + " TEXT NOT NULL, " +
                 COL_PASSWORD + " TEXT NOT NULL, " +
+                COL_VOTED + " INTEGER DEFAULT 0 , " +
                 COL_IMAGE + " BLOB)";
 
         db.execSQL(createUsersTable);
@@ -268,13 +270,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean InsertUserImage(String userID, byte[] imageByteArray) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_IMAGE, imageByteArray);
-        int rowsAffected = db.update(TABLE_USERS, contentValues, COL_NID + " = ?", new String[]{String.valueOf(userID)});
-        db.close();
         contentValues.put(DatabaseHelper.COL_IMAGE, imageByteArray);
+        int rowsAffected = db.update(
+                TABLE_USERS,
+                contentValues,
+                COL_EMAIL + " = ? OR " + COL_MOBILE + " = ?",
+                new String[]{userID, userID}
+        );
         db.close();
         return rowsAffected > 0;
     }
+
     public boolean isEmailUnique(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COL_EMAIL + " = ?", new String[]{email});
@@ -298,4 +304,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return isUnique;
     }
+
+    public boolean hasVoted(String userinfo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        boolean hasVoted = false;
+
+        try {
+            // Query to check the VOTED column for the given userinfo
+            String query = "SELECT " + COL_VOTED +
+                    " FROM " + TABLE_USERS +
+                    " WHERE " + COL_EMAIL + " = ? OR " + COL_MOBILE + " = ?";
+
+            cursor = db.rawQuery(query, new String[]{userinfo, userinfo});
+
+            if (cursor != null && cursor.moveToFirst()) {
+                // Get the VOTED value (0 or 1)
+                int votedValue = cursor.getInt(cursor.getColumnIndexOrThrow(COL_VOTED));
+                hasVoted = (votedValue == 1); // Set to true if VOTED = 1
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return hasVoted;
+    }
+
+
+    public void setVoted(String userinfo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_VOTED, 1);
+        int rowsAffected = db.update(
+                TABLE_USERS,
+                contentValues,
+                COL_EMAIL + " = ? OR " + COL_MOBILE + " = ?",
+                new String[]{userinfo, userinfo}
+        );
+
+        if (rowsAffected > 0) {
+            System.out.println("VOTED updated successfully for user: " + userinfo);
+        } else {
+            System.out.println("No matching user found for userinfo: " + userinfo);
+        }
+
+        db.close();
+    }
+
 }
