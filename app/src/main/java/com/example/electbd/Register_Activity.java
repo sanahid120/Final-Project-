@@ -72,6 +72,11 @@ public class Register_Activity extends AppCompatActivity {
 
 public class Register_Activity extends AppCompatActivity {
 
+    Pattern phonePattern = Pattern.compile("^(\\+88)?01[2-9][0-9]{8}$");
+    Pattern emailPattern = Pattern.compile("^(cse)_\\d{16}@lus.ac.bd$");
+    Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
+    Pattern birthdayPattern = Pattern.compile("^(0[1-9]|[1|2][0-9]|3[01])/(0[1-9]|1[0-2])/((19|20)[0-9]{2})$");
+    Pattern idPattern = Pattern.compile("^\\d{16}$");
     private EditText rg_username, rg_email, rg_id, rg_birthday, rg_phone, rg_password, rg_confirm_password;
     private Button btnRegister;
     private DatabaseHelper dbHelper;
@@ -128,51 +133,43 @@ public class Register_Activity extends AppCompatActivity {
     }
 
     private boolean validateInputs(String username, String email, String id, String birthday, String phone, String password, String confirm_password) {
-
-        Pattern phonePattern = Pattern.compile("^(\\+88)?01[2-9][0-9]{8}$");
-        Pattern emailPattern = Pattern.compile("^(cse)_\\d{16}@lus.ac.bd$");
-        Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
-        Pattern birthdayPattern = Pattern.compile("^(0[1-9]|[1|2][0-9]|3[01])/(0[1-9]|1[0-2])/((19|20)[0-9]{2})$");
-        Pattern idPattern = Pattern.compile("^\\d{16}$");
-
         if (username.isEmpty() || id.isEmpty() || birthday.isEmpty() || phone.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "All fields are required.", Toast.LENGTH_SHORT).show();
-            if(username.isEmpty()){
+            if (username.isEmpty()) {
                 rg_username.setError("Enter Username");
             }
-            if (id.isEmpty()){
+            if (id.isEmpty()) {
                 rg_id.setError("Enter ID");
             }
-            if(birthday.isEmpty()){
+            if(email.isEmpty()){
+                rg_email.setError("Enter Email");
+            }
+            if (birthday.isEmpty()) {
                 rg_birthday.setError("Enter BirthDate");
             }
-            if(phone.isEmpty()){
+            if (phone.isEmpty()) {
                 rg_phone.setError("Enter Mobile Number");
             }
-            if(password.isEmpty()){
+            if (password.isEmpty()) {
                 rg_password.setError("Enter Password");
             }
             return false;
         }
 
-        //email validation code
-
         else if (!emailPattern.matcher(email).matches()) {
             Toast.makeText(this, "Invalid e-mail address,CSE mail only", Toast.LENGTH_SHORT).show();
             rg_email.setError("Enter LU CSE mail");
-            return  false;
+            return false;
         }
         else if (!dbHelper.isEmailUnique(email)) {
             rg_email.setError("email already registered!!");
             return false;
         }
-
         else if (!idPattern.matcher(id).matches()) {
             Toast.makeText(this, "Invalid ID. Must Have 16 Digits", Toast.LENGTH_SHORT).show();
             rg_id.setError("Must have 16 digits");
             return false;
-        }
-        else if (!dbHelper.isIdUnique(id)) {
+        } else if (!dbHelper.isIdUnique(id)) {
             rg_id.setError("ID already registered!!");
             return false;
         }
@@ -189,8 +186,7 @@ public class Register_Activity extends AppCompatActivity {
             Toast.makeText(this, "is this a phone number?", Toast.LENGTH_SHORT).show();
             rg_phone.setError("Enter a valid number");
             return false;
-        }
-        else if (!dbHelper.isPhoneUnique(phone)) {
+        } else if (!dbHelper.isPhoneUnique(phone)) {
             rg_phone.setError("Phone already registered!!");
             return false;
         }
@@ -201,14 +197,12 @@ public class Register_Activity extends AppCompatActivity {
             Toast.makeText(this, "atleast 1 upper, 1 lower and 1 number", Toast.LENGTH_SHORT).show();
             rg_password.setError("atleast 8,Uper, lower, number ");
             return false;
-        }
-
-        // confirmed password code
-        else if (!password.equals(confirm_password)) {
+        } else if (!password.equals(confirm_password)) {
             Toast.makeText(this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
+            rg_confirm_password.setError("Passwords don't match");
+            rg_password.setError("Passwords don't match");
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }

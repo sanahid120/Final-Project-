@@ -352,8 +352,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             System.out.println("No matching user found for userinfo: " + userinfo);
         }
-
         db.close();
     }
-
 }
