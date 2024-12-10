@@ -10,24 +10,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database constants
     private static final String DATABASE_NAME = "NationalServer";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 9;
 
     // Table names
     private static final String TABLE_USERS = "users";
     private static final String TABLE_CANDIDATES = "candidates";
-    private static final String TABLE_ID_SERVER = "id_server";
     private static final String TABLE_ADMIN_INFO = "admin_info";
-
-    // Column names for ID server table
-    private static final String COL_ID_SERVER_ID = "server_id";
-    private static final String COL_ID_SERVER_NAME = "name";
-    private static final String COL_ID_SERVER_F_NAME = "father_name";
-    private static final String COL_ID_SERVER_M_NAME = "mother_name";
-    private static final String COL_ID_SERVER_PHONE = "phone";
-    private static final String COL_ID_SERVER_ADDRESS = "address";
-    private static final String COL_ID_SERVER_IMAGE = "image";
-
-
 
     // Column names for users table
     static final String COL_USERNAME = "username";
@@ -36,6 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String COL_BIRTHDAY = "birthday";
     static final String COL_MOBILE = "mobile";
     static final String COL_PASSWORD = "password";
+    static final String COL_IMAGE = "image";
 
     // Column names for candidates table
     static final String COL_ID = "id";
@@ -43,8 +32,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String COL_VOTES = "votes";
     static final String COL_PRODUCT_IMAGE_URI = "product_image_uri";
 
-    static final String COL_ADMIN_USERNAME= "admin_username";
-    static final String COL_ADMIN_PASSWORD= "admin_password";
+    static final String COL_ADMIN_USERNAME = "admin_username";
+    static final String COL_ADMIN_PASSWORD = "admin_password";
 
 
     public DatabaseHelper(Context context) {
@@ -60,7 +49,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL_NID + " TEXT PRIMARY KEY, " + // Assuming NID is unique
                 COL_BIRTHDAY + " TEXT NOT NULL, " +
                 COL_MOBILE + " TEXT NOT NULL, " +
-                COL_PASSWORD + " TEXT NOT NULL)";
+                COL_PASSWORD + " TEXT NOT NULL, " +
+                COL_IMAGE + " BLOB)";
 
         db.execSQL(createUsersTable);
 
@@ -79,16 +69,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL_PRODUCT_IMAGE_URI + " BLOB)";
 
         db.execSQL(createCandidatesTable);
-
-        String createIDServerTable = "CREATE TABLE " + TABLE_ID_SERVER + " (" +
-                COL_ID_SERVER_ID + " TEXT PRIMARY KEY, " +
-                COL_ID_SERVER_NAME + " TEXT NOT NULL, " +
-                COL_ID_SERVER_F_NAME + " TEXT, " +
-                COL_ID_SERVER_M_NAME + " TEXT, " +
-                COL_ID_SERVER_PHONE + " TEXT NOT NULL, " +
-                COL_ID_SERVER_ADDRESS + " TEXT, " +
-                COL_ID_SERVER_IMAGE + " BLOB)";
-        db.execSQL(createIDServerTable);
     }
 
     @Override
@@ -96,7 +76,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Drop old tables if exist
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CANDIDATES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ID_SERVER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ADMIN_INFO);
         // Create tables again
         onCreate(db);
@@ -112,10 +91,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_BIRTHDAY, birthday);
         contentValues.put(COL_MOBILE, mobile);
         contentValues.put(COL_PASSWORD, password);
-
         long result = db.insert(TABLE_USERS, null, contentValues);
         db.close();
-
         return result != -1;
     }
 
@@ -184,11 +161,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         db.close();
-
-
         return rowsDeleted > 0;
-
     }
+
     public boolean incrementVoteCount(int candidateID) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT " + COL_VOTES + " FROM " + TABLE_CANDIDATES + " WHERE " + COL_ID + " = ?", new String[]{String.valueOf(candidateID)});
@@ -205,24 +180,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return false;
     }
-
-    public boolean InsertIDServer(String insertId, String insertName, String insertFName, String insertMName, String insertPhone, String insertAddress, byte[] imageByteArray) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COL_ID_SERVER_ID, insertId);
-        values.put(COL_ID_SERVER_NAME, insertName);
-        values.put(COL_ID_SERVER_F_NAME, insertFName);
-        values.put(COL_ID_SERVER_M_NAME, insertMName);
-        values.put(COL_ID_SERVER_PHONE, insertPhone);
-        values.put(COL_ID_SERVER_ADDRESS, insertAddress);
-        values.put(COL_ID_SERVER_IMAGE, imageByteArray);
-
-        long result = db.insert(TABLE_ID_SERVER, null, values);
-        db.close();
-        return result != -1;
-    }
-
 
 
     public Cursor getUserInfo(String username) {
@@ -273,6 +230,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return isValid;
     }
+
     public String getCurrentAdminUsername() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT " + COL_ADMIN_USERNAME + " FROM " + TABLE_ADMIN_INFO, null);
@@ -308,29 +266,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsAffected > 0;
     }
 
-/*
-    public boolean updateIDServer(String id, String name, String fatherName, String motherName, String phone, String address, byte[] imageByteArray) {
+    public boolean InsertUserImage(String userID, byte[] imageByteArray) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COL_ID_SERVER_NAME, name);
-        values.put(COL_ID_SERVER_F_NAME, fatherName);
-        values.put(COL_ID_SERVER_M_NAME, motherName);
-        values.put(COL_ID_SERVER_PHONE, phone);
-        values.put(COL_ID_SERVER_ADDRESS, address);
-        values.put(COL_ID_SERVER_IMAGE, imageByteArray);
-
-        int rowsAffected = db.update(TABLE_ID_SERVER, values, COL_ID_SERVER_ID + " = ?", new String[]{id});
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_IMAGE, imageByteArray);
+        int rowsAffected = db.update(TABLE_USERS, contentValues, COL_NID + " = ?", new String[]{String.valueOf(userID)});
+        db.close();
+        contentValues.put(DatabaseHelper.COL_IMAGE, imageByteArray);
         db.close();
         return rowsAffected > 0;
     }
-*/
-
-    /*
-    public boolean deleteIDServer(String id) {
-    SQLiteDatabase db = this.getWritableDatabase();
-    int rowsDeleted = db.delete(TABLE_ID_SERVER, COL_ID_SERVER_ID + " = ?", new String[]{id});
-    db.close();
-    return rowsDeleted > 0;
-    }
-    */
 }
