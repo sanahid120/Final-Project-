@@ -162,11 +162,18 @@ public class Register_Activity extends AppCompatActivity {
             rg_email.setError("Enter LU CSE mail");
             return  false;
         }
+        else if (!dbHelper.isEmailUnique(email)) {
+            rg_email.setError("email already registered!!");
+            return false;
+        }
 
-        // ID validation code
         else if (!idPattern.matcher(id).matches()) {
             Toast.makeText(this, "Invalid ID. Must Have 16 Digits", Toast.LENGTH_SHORT).show();
             rg_id.setError("Must have 16 digits");
+            return false;
+        }
+        else if (!dbHelper.isIdUnique(id)) {
+            rg_id.setError("ID already registered!!");
             return false;
         }
 
@@ -181,6 +188,10 @@ public class Register_Activity extends AppCompatActivity {
         else if (!phonePattern.matcher(phone).matches()) {
             Toast.makeText(this, "is this a phone number?", Toast.LENGTH_SHORT).show();
             rg_phone.setError("Enter a valid number");
+            return false;
+        }
+        else if (!dbHelper.isPhoneUnique(phone)) {
+            rg_phone.setError("Phone already registered!!");
             return false;
         }
 

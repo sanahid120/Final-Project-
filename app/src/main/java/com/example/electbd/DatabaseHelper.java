@@ -171,7 +171,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int currentVotes = cursor.getInt(cursor.getColumnIndexOrThrow(COL_VOTES));
             ContentValues values = new ContentValues();
             values.put(COL_VOTES, currentVotes + 1);
-
             int rowsAffected = db.update(TABLE_CANDIDATES, values, COL_ID + " = ?", new String[]{String.valueOf(candidateID)});
             cursor.close();
             db.close();
@@ -275,5 +274,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(DatabaseHelper.COL_IMAGE, imageByteArray);
         db.close();
         return rowsAffected > 0;
+    }
+    public boolean isEmailUnique(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COL_EMAIL + " = ?", new String[]{email});
+        boolean isUnique = !cursor.moveToFirst();
+        cursor.close();
+        return isUnique;
+    }
+
+    public boolean isPhoneUnique(String phone) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COL_MOBILE + " = ?", new String[]{phone});
+        boolean isUnique = !cursor.moveToFirst();
+        cursor.close();
+        return isUnique;
+    }
+
+    public boolean isIdUnique(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COL_NID + " = ?", new String[]{id});
+        boolean isUnique = !cursor.moveToFirst();
+        cursor.close();
+        return isUnique;
     }
 }
