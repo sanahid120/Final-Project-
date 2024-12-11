@@ -165,8 +165,7 @@ public class UpdateActivity extends AppCompatActivity {
 
             if (isUpdated) {
                 Toast.makeText(this, "Candidate updated successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UpdateActivity.this, AdminActivity.class);
-                startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show();
             }

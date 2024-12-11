@@ -77,8 +77,7 @@ public class DeleteActivity extends AppCompatActivity {
 
             if (isDeleted) {
                 Toast.makeText(this, "Candidate deleted successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(DeleteActivity.this, AdminActivity.class);
-                startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(this, "Deletion failed", Toast.LENGTH_SHORT).show();
             }

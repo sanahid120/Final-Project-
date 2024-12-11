@@ -68,7 +68,10 @@ public class InsertActivity extends AppCompatActivity {
 
         // Set up button listeners
         SelectImage.setOnClickListener(view -> showImageSelectionDialog());
-        InsertDetails.setOnClickListener(view -> insertCandidate());
+        InsertDetails.setOnClickListener(view -> {
+            insertCandidate();
+            finish();
+        });
     }
 
     // Method to show image picker dialog

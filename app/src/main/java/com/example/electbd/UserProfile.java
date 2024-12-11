@@ -81,14 +81,14 @@ public class UserProfile extends AppCompatActivity {
         // Handle save button click
         saveButton.setOnClickListener(v -> {
             String newUsername = usernameEditText.getText().toString().trim();
-            boolean isUpdated = dbHelper.InsertUserImage(userinfo, imageByteArray);
-            if (isUpdated){
+
+            if (dbHelper.InsertUserImage(userinfo, imageByteArray)){
                 loadUserInfo(userinfo);
             }
             if (!newUsername.isEmpty()) {
-                // Update the username in the database
                 dbHelper.updateUsername(userID, newUsername);
                 Toast.makeText(UserProfile.this, "Username saved!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(UserProfile.this,CandidatesActivity.class));
             } else {
                 usernameEditText.setError("Username is Empty!");
             }
