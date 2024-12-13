@@ -18,6 +18,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SessionManager sessionManager = new SessionManager(this);
+        if (sessionManager.isLoggedIn()) {
+            // Redirect to the main activity
+            startActivity(new Intent(this, CandidatesActivity.class));
+            finish();
+        }
+
         setContentView(R.layout.activity_main);
 
         // Initialize UI components
@@ -61,12 +69,16 @@ public class MainActivity extends AppCompatActivity {
         // Check if user is admin
         if (dbhelper.checkAdminCredentials(username, password)) {
             navigateToActivity(AdminActivity.class);
+            finish();
         }
         // Check if user info matches
         else if (checkUserinfo(username, password)) {
             showToast("Login Successful!");
             navigateToActivity(CandidatesActivity.class);
+            SessionManager sessionManager=new SessionManager(this);
+            sessionManager.setLogin(true);
             UserProfile.userinfo=username;
+            finish();
         }
         // Else, show an error
         else {

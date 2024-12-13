@@ -2,73 +2,12 @@ package com.example.electbd;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.regex.Pattern;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-/*
-public class Register_Activity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-
-        EditText rg_username = findViewById(R.id.et_reg_username);
-        EditText rg_email = findViewById(R.id.et_email);
-        EditText rg_nid = findViewById(R.id.et_nid);
-        EditText rg_birthday = findViewById(R.id.et_birth_date);
-        EditText rg_phone = findViewById(R.id.et_phone);
-        EditText rg_password = findViewById(R.id.et_reg_password);
-        EditText rg_confirm_password = findViewById(R.id.et_confirm_password);
-
-        Button btnRegister = findViewById(R.id.btn_SignUp);
-        Button btnLogin = findViewById(R.id.btn_SignIn);
-
-        String username = rg_username.getText().toString();
-        String email = rg_email.getText().toString();
-        String nid = rg_nid.getText().toString();
-        String birthday = rg_birthday.getText().toString();
-        String phone = rg_phone.getText().toString();
-        String password = rg_password.getText().toString();
-        String confirm_password = rg_confirm_password.getText().toString();
-
-        btnRegister.setOnClickListener(v->{
-
-                if (password.equals(confirm_password) && !username.isEmpty() && !password.isEmpty() && !nid.isEmpty() && !phone.isEmpty() && !birthday.isEmpty()) {
-
-                    DatabaseHelper dbhelper = new DatabaseHelper(this);
-                    boolean isinserted = dbhelper.insertUser(username, email, nid, birthday, phone, password);
-
-                    if (isinserted) {
-                        Intent intenttologin = new Intent(Register_Activity.this,MainActivity.class);
-                        startActivity(intenttologin);
-                    } else {
-                        Toast.makeText(Register_Activity.this, "Cannot registered Successfully!", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(Register_Activity.this, "Fill required filled first!", Toast.LENGTH_SHORT).show();
-
-               }
-
-
-        });
-        btnLogin.setOnClickListener(v->{
-            Toast.makeText(Register_Activity.this, "signin button clicked", Toast.LENGTH_SHORT).show();
-            Intent intenttologin = new Intent(Register_Activity.this, MainActivity.class);
-            startActivity(intenttologin);
-        });
-    }
-}
-*/
 
 public class Register_Activity extends AppCompatActivity {
 
@@ -123,12 +62,20 @@ public class Register_Activity extends AppCompatActivity {
         if (validateInputs(username, email, id, birthday, phone, password, confirm_password)) {
             boolean isInserted = dbHelper.insertUser(username, email, id, birthday, phone, password);
 
+
             if (isInserted) {
                 Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                navigateToLogin();
-            } else {
+                SessionManager sessionManager = new SessionManager(this);
+                sessionManager.setLogin(true);
+
+                startActivity(new Intent(this, CandidatesActivity.class));
+                finish();
+            }
+            else {
                 Toast.makeText(this, "Registration failed! Try again.", Toast.LENGTH_SHORT).show();
             }
+
+
         }
     }
 
@@ -137,21 +84,27 @@ public class Register_Activity extends AppCompatActivity {
             Toast.makeText(this, "All fields are required.", Toast.LENGTH_SHORT).show();
             if (username.isEmpty()) {
                 rg_username.setError("Enter Username");
+                rg_username.requestFocus();
             }
             if (id.isEmpty()) {
                 rg_id.setError("Enter ID");
+                rg_id.requestFocus();
             }
             if(email.isEmpty()){
                 rg_email.setError("Enter Email");
+                rg_email.requestFocus();
             }
             if (birthday.isEmpty()) {
                 rg_birthday.setError("Enter BirthDate");
+                rg_birthday.requestFocus();
             }
             if (phone.isEmpty()) {
                 rg_phone.setError("Enter Mobile Number");
+                rg_phone.requestFocus();
             }
             if (password.isEmpty()) {
                 rg_password.setError("Enter Password");
+                rg_password.requestFocus();
             }
             return false;
         }
@@ -159,10 +112,12 @@ public class Register_Activity extends AppCompatActivity {
         else if (!emailPattern.matcher(email).matches()) {
             Toast.makeText(this, "Invalid e-mail address,CSE mail only", Toast.LENGTH_SHORT).show();
             rg_email.setError("Enter LU CSE mail");
+            rg_email.requestFocus();
             return false;
         }
         else if (!dbHelper.isEmailUnique(email)) {
             rg_email.setError("email already registered!!");
+            rg_email.requestFocus();
             return false;
         }
         else if (!idPattern.matcher(id).matches()) {
@@ -171,6 +126,7 @@ public class Register_Activity extends AppCompatActivity {
             return false;
         } else if (!dbHelper.isIdUnique(id)) {
             rg_id.setError("ID already registered!!");
+            rg_id.requestFocus();
             return false;
         }
 
@@ -178,6 +134,7 @@ public class Register_Activity extends AppCompatActivity {
         else if (!birthdayPattern.matcher(birthday).matches()) {
             Toast.makeText(this, "Enter date correctly!!", Toast.LENGTH_SHORT).show();
             rg_birthday.setError("Enter Correct date");
+            rg_birthday.requestFocus();
             return false;
         }
 
@@ -185,9 +142,11 @@ public class Register_Activity extends AppCompatActivity {
         else if (!phonePattern.matcher(phone).matches()) {
             Toast.makeText(this, "is this a phone number?", Toast.LENGTH_SHORT).show();
             rg_phone.setError("Enter a valid number");
+            rg_phone.requestFocus();
             return false;
         } else if (!dbHelper.isPhoneUnique(phone)) {
             rg_phone.setError("Phone already registered!!");
+            rg_phone.requestFocus();
             return false;
         }
 
@@ -196,11 +155,14 @@ public class Register_Activity extends AppCompatActivity {
             Toast.makeText(this, "Password must have least of 8 characters", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "atleast 1 upper, 1 lower and 1 number", Toast.LENGTH_SHORT).show();
             rg_password.setError("atleast 8,Uper, lower, number ");
+            rg_password.requestFocus();
             return false;
         } else if (!password.equals(confirm_password)) {
             Toast.makeText(this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
             rg_confirm_password.setError("Passwords don't match");
+            rg_confirm_password.requestFocus();
             rg_password.setError("Passwords don't match");
+            rg_password.requestFocus();
             return false;
         } else {
             return true;

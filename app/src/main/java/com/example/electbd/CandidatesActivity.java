@@ -28,15 +28,14 @@ public class CandidatesActivity extends AppCompatActivity {
         listViewCandidates = findViewById(R.id.list_view_Candidates);
 
         logout.setOnClickListener(v->{
-            finish();
-            Intent intent = new Intent(CandidatesActivity.this, MainActivity.class);
+            SessionManager sessionManager = new SessionManager(this);
+            sessionManager.setLogin(false);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-
-            // i will design it further with firebase.
+            finish();
         });
         profile.setOnClickListener(v->{
-
-            Intent intent = new Intent(CandidatesActivity.this, UserProfile.class);
+            Intent intent = new Intent(this, UserProfile.class);
             startActivity(intent);
         });
 
