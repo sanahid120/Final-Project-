@@ -33,7 +33,10 @@ public class Register_Activity extends AppCompatActivity {
         btnRegister.setOnClickListener(v -> {
             handleRegistration();
         });
-        btnLogin.setOnClickListener(v -> navigateToLogin());
+        btnLogin.setOnClickListener(v -> {
+            navigateToLogin();
+            finish();
+        });
     }
 
     private void initializeUIComponents() {
@@ -65,10 +68,7 @@ public class Register_Activity extends AppCompatActivity {
 
             if (isInserted) {
                 Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                SessionManager sessionManager = new SessionManager(this);
-                sessionManager.setLogin(true);
-
-                startActivity(new Intent(this, CandidatesActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 finish();
             }
             else {

@@ -62,7 +62,7 @@ public class CandidatesAdapter extends CursorAdapter {
                     dbHelper.setVoted(UserProfile.userinfo);
                     notifyDataSetChanged();
                 } else {
-                    Toast.makeText(context, "Failed to record vote", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "You've already voted!!!", Toast.LENGTH_SHORT).show();
                 }
         });
     }

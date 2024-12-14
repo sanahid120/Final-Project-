@@ -92,6 +92,7 @@ public class Admin_Profile extends AppCompatActivity {
     private EditText username, currentPassword, newPassword;
     private Button save;
     private TextView back;
+
     MainActivity mainActivity =new MainActivity();
     @Override
     protected void onCreate(Bundle savedInstanceState) {

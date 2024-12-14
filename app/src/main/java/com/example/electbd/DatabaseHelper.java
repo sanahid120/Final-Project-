@@ -10,7 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database constants
     private static final String DATABASE_NAME = "NationalServer";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
 
     // Table names
     private static final String TABLE_USERS = "users";
@@ -52,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL_MOBILE + " TEXT NOT NULL, " +
                 COL_PASSWORD + " TEXT NOT NULL, " +
                 COL_VOTED + " INTEGER DEFAULT 0 , " +
-                COL_IMAGE + " BLOB)";
+                COL_IMAGE + " BLOB DEFAULT NULL)";
 
         db.execSQL(createUsersTable);
 
@@ -107,6 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
         boolean exists = cursor.getCount() > 0;
         cursor.close();
+        db.close();
         return exists;
     }
 
@@ -125,6 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT id AS _id, name, votes, product_image_uri FROM candidates";
         return db.rawQuery(query, null);
+
     }
 
     public Cursor getByCid(String cid) {
@@ -185,7 +187,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getUserInfo(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
-        // Use OR to check for email or phone
+
         String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COL_EMAIL + " = ? OR " + COL_MOBILE + " = ?";
         return db.rawQuery(query, new String[]{username, username});
     }
@@ -208,7 +210,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Insert default admin credentials if they do not exist
-    public boolean insertAdminCredentials(String username, String password) {
+    public void insertAdminCredentials(String username, String password) {
         if (!isAdminExists()) {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
@@ -216,9 +218,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(COL_ADMIN_PASSWORD, password);
             long result = db.insert(TABLE_ADMIN_INFO, null, contentValues);
             db.close();
-            return result != -1;
         }
-        return false; // Admin already exists
     }
 
     // Check if given credentials match the admin credentials in the database

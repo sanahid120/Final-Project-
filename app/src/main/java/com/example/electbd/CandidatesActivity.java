@@ -29,7 +29,7 @@ public class CandidatesActivity extends AppCompatActivity {
 
         logout.setOnClickListener(v->{
             SessionManager sessionManager = new SessionManager(this);
-            sessionManager.setLogin(false);
+            sessionManager.clearSession();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();

@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void navigateToRegistration() {
         startActivity(new Intent(MainActivity.this,Register_Activity.class));
+        finish();
     }
 
     private void handleLogin() {
@@ -76,11 +77,10 @@ public class MainActivity extends AppCompatActivity {
             showToast("Login Successful!");
             navigateToActivity(CandidatesActivity.class);
             SessionManager sessionManager=new SessionManager(this);
-            sessionManager.setLogin(true);
+            sessionManager.setLogin(true,username);
             UserProfile.userinfo=username;
             finish();
         }
-        // Else, show an error
         else {
             showToast("Unregistered Information!");
         }

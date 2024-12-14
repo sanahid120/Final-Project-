@@ -30,36 +30,34 @@ public class UserProfile extends AppCompatActivity {
     private EditText birthdayEditText;
     private EditText phoneEditText;
     private EditText userIdTextView;
-    private Button saveButton;
     static String userinfo;
-    private TextView changeEmailOrPhoneTextView;
-    private TextView changePasswordTextView,back;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private byte[] imageByteArray;
     private DatabaseHelper dbHelper;
-    private String userID; // Example userId, should be retrieved from session or intent
+    private  String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        back=findViewById(R.id.btn_back_userProfile);
+        TextView back = findViewById(R.id.btn_back_userProfile);
         profileImageView = findViewById(R.id.user_profile_image);
         usernameEditText = findViewById(R.id.change_username_edit_text);
         birthdayEditText = findViewById(R.id.change_birthday_edit_text);
         phoneEditText = findViewById(R.id.change_phone_edit_text);
         userIdTextView = findViewById(R.id.user_id_edit_text);
-        saveButton = findViewById(R.id.save_button);
-        changeEmailOrPhoneTextView = findViewById(R.id.tv_profile_change_email_or_phone);
-        changePasswordTextView = findViewById(R.id.tv_profile_change_password);
+        Button saveButton = findViewById(R.id.save_button);
+        TextView changeEmailOrPhoneTextView = findViewById(R.id.tv_profile_change_email_or_phone);
+        TextView changePasswordTextView = findViewById(R.id.tv_profile_change_password);
 
         dbHelper = new DatabaseHelper(this);
 
         back.setOnClickListener(v->{
             finish();
         });
-        loadUserInfo(userinfo);
+        SessionManager sessionManager =new SessionManager(this);
+        loadUserInfo(sessionManager.getUsername());
 
         imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
@@ -78,17 +76,17 @@ public class UserProfile extends AppCompatActivity {
             showImageSelectionDialog();
         });
 
-        // Handle save button click
         saveButton.setOnClickListener(v -> {
             String newUsername = usernameEditText.getText().toString().trim();
 
-            if (dbHelper.InsertUserImage(userinfo, imageByteArray)){
-                loadUserInfo(userinfo);
+            if (dbHelper.InsertUserImage(sessionManager.getUsername(), imageByteArray)){
+                loadUserInfo(sessionManager.getUsername());
             }
             if (!newUsername.isEmpty()) {
                 dbHelper.updateUsername(userID, newUsername);
                 Toast.makeText(UserProfile.this, "Username saved!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(UserProfile.this,CandidatesActivity.class));
+                finish();
             } else {
                 usernameEditText.setError("Username is Empty!");
             }
@@ -110,11 +108,10 @@ public class UserProfile extends AppCompatActivity {
 
     // Load user info from the database and set it in the EditText fields
     void loadUserInfo(String Username) {
-        // Query the database for user info based on userId
         Cursor cursor = dbHelper.getUserInfo(Username);
 
         if (cursor != null && cursor.moveToFirst()) {
-            // Retrieve user details from the cursor
+
             String username = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_USERNAME));
             String birthday = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_BIRTHDAY));
             String phone = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_MOBILE));
@@ -130,11 +127,12 @@ public class UserProfile extends AppCompatActivity {
                 imageByteArray = image;
             }
             cursor.close();
-            cursor.close();
         } else {
             Toast.makeText(this, "User not found!", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
     private void showImageSelectionDialog() {
         Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -143,7 +141,7 @@ public class UserProfile extends AppCompatActivity {
     }
     private byte[] bitmapToByteArray(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
 }

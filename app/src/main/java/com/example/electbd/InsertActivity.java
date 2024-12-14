@@ -70,7 +70,6 @@ public class InsertActivity extends AppCompatActivity {
         SelectImage.setOnClickListener(view -> showImageSelectionDialog());
         InsertDetails.setOnClickListener(view -> {
             insertCandidate();
-            finish();
         });
     }
 
@@ -100,6 +99,7 @@ public class InsertActivity extends AppCompatActivity {
             Toast.makeText(this, "Candidate inserted successfully", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(InsertActivity.this, AdminActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 }

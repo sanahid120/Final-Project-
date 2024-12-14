@@ -29,9 +29,9 @@ public class AdminActivity extends AppCompatActivity {
         logout = findViewById(R.id.tv_logout_admin);
 
         logout.setOnClickListener(v->{
-            finish();
             Intent intent = new Intent(AdminActivity.this,MainActivity.class);
             startActivity(intent);
+            finish();
         });
 
         view.setOnClickListener(v -> {
