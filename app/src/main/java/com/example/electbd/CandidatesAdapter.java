@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.nio.file.attribute.UserDefinedFileAttributeView;
+
 public class CandidatesAdapter extends CursorAdapter {
     private final DatabaseHelper dbHelper;
     private Context context;
@@ -41,6 +43,7 @@ public class CandidatesAdapter extends CursorAdapter {
         TextView resultNameView = view.findViewById(R.id.list_view_results);
         ImageView resultImageView = view.findViewById(R.id.iv_result_candidate);
 
+
         String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_NAME));
         byte[] imageBytes = cursor.getBlob(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_PRODUCT_IMAGE_URI));
         int candidateID = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
@@ -48,7 +51,7 @@ public class CandidatesAdapter extends CursorAdapter {
         nameView.setText(name);
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         candidateImage.setImageBitmap(bitmap);
-        if (dbHelper.hasVoted(UserProfile.userinfo)) {
+        if (dbHelper.hasVoted(UserProfile.userInfo)) {
             vote.setEnabled(false);
         } else {
             vote.setEnabled(true);
@@ -59,9 +62,9 @@ public class CandidatesAdapter extends CursorAdapter {
                     Toast.makeText(context, "Vote recorded for " + name, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, View_Results.class);
                     context.startActivity(intent);
-                    dbHelper.setVoted(UserProfile.userinfo);
+                    dbHelper.setVoted(UserProfile.userInfo);
                     notifyDataSetChanged();
-                } else {
+                } if(!success) {
                     Toast.makeText(context, "You've already voted!!!", Toast.LENGTH_SHORT).show();
                 }
         });

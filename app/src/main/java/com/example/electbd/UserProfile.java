@@ -30,11 +30,11 @@ public class UserProfile extends AppCompatActivity {
     private EditText birthdayEditText;
     private EditText phoneEditText;
     private EditText userIdTextView;
-    static String userinfo;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private byte[] imageByteArray;
     private DatabaseHelper dbHelper;
     private  String userID;
+    static String userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,8 +131,6 @@ public class UserProfile extends AppCompatActivity {
             Toast.makeText(this, "User not found!", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
     private void showImageSelectionDialog() {
         Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

@@ -192,7 +192,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery(query, new String[]{username, username});
     }
 
-
     public void updateUsername(String userId, String newUsername) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

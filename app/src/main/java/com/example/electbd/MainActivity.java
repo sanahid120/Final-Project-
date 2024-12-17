@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             navigateToActivity(CandidatesActivity.class);
             SessionManager sessionManager=new SessionManager(this);
             sessionManager.setLogin(true,username);
-            UserProfile.userinfo=username;
+            UserProfile.userInfo=sessionManager.getUsername();
             finish();
         }
         else {
