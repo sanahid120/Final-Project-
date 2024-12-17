@@ -34,7 +34,6 @@ public class UserProfile extends AppCompatActivity {
     private byte[] imageByteArray;
     private DatabaseHelper dbHelper;
     private  String userID;
-    static String userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -27,6 +27,8 @@ public class CandidatesAdapter extends CursorAdapter {
     super(context,cursor,i);
         this.context = context;
         this.dbHelper = new DatabaseHelper(context);
+
+
     }
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
@@ -39,10 +41,7 @@ public class CandidatesAdapter extends CursorAdapter {
         TextView nameView = view.findViewById(R.id.tv_candidate_name);
         Button vote = view.findViewById(R.id.bt_vote);
         ImageView candidateImage = view.findViewById(R.id.iv_candidate);
-        TextView resultVoteView = view.findViewById(R.id.tv_candidate_results);
-        TextView resultNameView = view.findViewById(R.id.list_view_results);
-        ImageView resultImageView = view.findViewById(R.id.iv_result_candidate);
-
+        SessionManager sessionManager = new SessionManager(context);
 
         String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_NAME));
         byte[] imageBytes = cursor.getBlob(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_PRODUCT_IMAGE_URI));
@@ -51,7 +50,7 @@ public class CandidatesAdapter extends CursorAdapter {
         nameView.setText(name);
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         candidateImage.setImageBitmap(bitmap);
-        if (dbHelper.hasVoted(UserProfile.userInfo)) {
+        if (dbHelper.hasVoted(sessionManager.getUsername())) {
             vote.setEnabled(false);
         } else {
             vote.setEnabled(true);
@@ -62,10 +61,8 @@ public class CandidatesAdapter extends CursorAdapter {
                     Toast.makeText(context, "Vote recorded for " + name, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, View_Results.class);
                     context.startActivity(intent);
-                    dbHelper.setVoted(UserProfile.userInfo);
+                    dbHelper.setVoted(sessionManager.getUsername());
                     notifyDataSetChanged();
-                } if(!success) {
-                    Toast.makeText(context, "You've already voted!!!", Toast.LENGTH_SHORT).show();
                 }
         });
     }
