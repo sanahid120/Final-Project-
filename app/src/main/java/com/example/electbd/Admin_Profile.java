@@ -99,8 +99,7 @@ public class Admin_Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_profile);
         InitializeUI();
-
-
+        
         back.setOnClickListener(v->{
             finish();
         });
@@ -148,8 +147,6 @@ public class Admin_Profile extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private void InitializeUI() {
@@ -179,12 +176,6 @@ public class Admin_Profile extends AppCompatActivity {
             isValid = false;
         }
         return isValid;
-    }
-
-    private void clearInputFields() {
-        username.setText("");
-        currentPassword.setText("");
-        newPassword.setText("");
     }
 
     private void showToast(String message) {
